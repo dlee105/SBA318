@@ -19,11 +19,14 @@
 // 16. Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
 
 const express = require("express");
+var bodyParser = require("body-parser");
 
 const app = express();
 const PORT = 3000;
 // ..
 app.use(express.static("./src"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
 
 //..
 const fs = require("fs");

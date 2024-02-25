@@ -25,7 +25,9 @@ router.route("/").get((req, res, next) => {
         `<div>${song.title}</div><div>${song.artist}</div>` +
         "</div>";
     } else if (Object.keys(req.query).includes("songName")) {
-      const song = hiphop.find((s) => s.title == req.query.songName);
+      const song = hiphop.find(
+        (s) => s.title.toLowerCase() == req.query.songName.toLowerCase()
+      );
       content +=
         cTemplate +
         `<div>${song.title}</div><div>${song.artist}</div>` +
