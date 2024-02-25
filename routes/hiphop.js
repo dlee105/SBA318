@@ -5,7 +5,7 @@ const fs = require("fs");
 const formData = new FormData();
 
 // ------------ MIDDLEWARE ------------- //
-router.use(express.static("./src")); // stylesheet
+router.use(express.static("../src")); // stylesheet
 
 // ---------- Template Engine ---------- //
 
@@ -15,20 +15,29 @@ router.route("/").get((req, res, next) => {
   let cTemplate =
     "<div class='w-100 d-flex justify-content-between bg-secondary text-light mb-1 p-2'>";
 
-  console.log(req.query);
+  // console.log(req.query);
+
   if (Object.keys(req.query).length > 0) {
-    const song = hiphop.find((s) => s.id == req.query.songID);
-    content +=
-      cTemplate +
-      `<div>${song.title}</div><div>${song.artist}</div>` +
-      "</div>";
+    if (Object.keys(req.query).includes("songID")) {
+      const song = hiphop.find((s) => s.id == req.query.songID);
+      content +=
+        cTemplate +
+        `<div>${song.title}</div><div>${song.artist}</div>` +
+        "</div>";
+    } else if (Object.keys(req.query).includes("songName")) {
+      const song = hiphop.find((s) => s.title == req.query.songName);
+      content +=
+        cTemplate +
+        `<div>${song.title}</div><div>${song.artist}</div>` +
+        "</div>";
+    }
   } else {
     for (let song of hiphop) {
       content +=
         cTemplate + `<div>${song.title}</div><div>${song.artist}</div></div>`;
     }
   }
-
+  // console.log(res);
   res.render("hiphop", { title: "HipHop", content: `${content}` });
 });
 
