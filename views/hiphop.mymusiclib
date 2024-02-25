@@ -50,6 +50,15 @@
             <input type="submit"/>
         </div>
       </form>
+      <form class="d-flex mb-5" name="_method" action="http://localhost:3000/API/hiphop/" method="patch">
+        <div class="mt-5 container-sm">
+            <div>Change Song at ID (currently not working/ use Postman or similar tools to test)</div>
+            <input id="songID" name="songID" placeholder="Enter ID"/>
+            <input id="songArtist" name="songArtist" placeholder="Change artist"/>
+            <input id="songName" name="songName" placeholder="Change title"/>
+            <input type="submit" value="Modify"/>
+        </div>
+      </form>
     </div>
   </body>
 </html>

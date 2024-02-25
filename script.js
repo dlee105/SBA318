@@ -64,6 +64,7 @@ app.get("/", (req, res) => {
 // Route onclick
 app.use("/api/EDM", require("./routes/edm"));
 app.use("/api/hiphop", require("./routes/hiphop"));
+app.use("/api/pop", require("./routes/pop"));
 
 // Error middleware
 app.use((err, req, res, next) => {

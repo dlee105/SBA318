@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const hiphop = require("../data/hiphop");
-const fs = require("fs");
-const formData = new FormData();
 
 // ------------ MIDDLEWARE ------------- //
 router.use(express.static("../src")); // stylesheet
@@ -24,7 +22,7 @@ router
         const song = hiphop.find((s) => s.id == req.query.songID);
         content +=
           cTemplate +
-          `<div>${song.title}</div><div>${song.artist}</div>` +
+          `<div>${song.id} | ${song.title}</div><div>${song.artist}</div>` +
           "</div>";
       } else if (Object.keys(req.query).includes("songName")) {
         const song = hiphop.find(
@@ -32,13 +30,14 @@ router
         );
         content +=
           cTemplate +
-          `<div>${song.title}</div><div>${song.artist}</div>` +
+          `<div>${song.id} | ${song.title}</div><div>${song.artist}</div>` +
           "</div>";
       }
     } else {
       for (let song of hiphop) {
         content +=
-          cTemplate + `<div>${song.title}</div><div>${song.artist}</div></div>`;
+          cTemplate +
+          `<div>${song.id} | ${song.title}</div><div>${song.artist}</div></div>`;
       }
     }
     // console.log(res);
@@ -59,6 +58,28 @@ router
         `<div>${song.id} | ${song.title}</div><div>${song.artist}</div></div>`;
     }
     res.render("hiphop", { title: "HipHop", content: `${content}` });
+  })
+  .patch((req, res, next) => {
+    const song = hiphop.find((s, i) => {
+      if (s.id == req.query.songID) {
+        hiphop[i].artist = req.query.songArtist;
+        hiphop[i].title = req.query.songName;
+        res.json(hiphop[i]);
+      } else {
+        next();
+      }
+    });
+  })
+  .delete((req, res, next) => {
+    const song = hiphop.find((s, i) => {
+      if (s.id == req.query.songID) {
+        hiphop.splice(i, 1);
+        hiphop.json(hiphop);
+        return true;
+      } else {
+        next();
+      }
+    });
   });
 
 router.get("/:id", (req, res, next) => {
