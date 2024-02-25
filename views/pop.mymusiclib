@@ -8,13 +8,48 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   </head>
-
+  
   <body>
     <div id="app" class="container">
       <div class="text-header text-center text-light bg-dark p-0 mb-5">
         <h1>#title#</h1>
       </div>
-      <div class="container-sm d-flex justify-content-between">#content#</div>
+      <div class="container-sm d-flex justify-content-between">
+        <form  action="http://localhost:3000/" method="GET">
+          <div>
+            <button class="btn btn-dark link-btn">Home</button>
+          </div>
+        </form>
+        <form action="http://localhost:3000/API/pop/" method="GET">
+          <div>
+            <button class="btn btn-dark link-btn">View All</button>
+          </div>
+        </form>
+        <form class="d-flex mb-5" action="http://localhost:3000/API/pop/" method="GET">
+          <div>
+            <input type="search" name="songName" id="songName" placeholder="enter song name"/>
+          </div>
+          <div>
+            <button class="link-btn">Get Song</button>
+          </div>
+        </form>
+        <form class="d-flex mb-5" action="http://localhost:3000/API/pop/" method="GET">
+          <div>
+            <input type="number" name="songID" value="1" min="1"/>
+          </div>
+          <div>
+            <button class="link-btn">Get Song</button>
+          </div>
+        </form>
+      </div>
+      <div class="container-sm">#content#</div>
+      <form action="http://localhost:3000/API/pop/" enctype='application/x-www-form-urlencoded' method="POST">
+        <div class="mt-5 container-sm">
+            <input id="songArtist" name="songArtist" placeholder="Enter artist"/>
+            <input id="songName" name="songName" placeholder="Enter title"/>
+            <input type="submit"/>
+        </div>
+      </form>
     </div>
   </body>
 </html>

@@ -45,9 +45,19 @@
       <div class="container-sm">#content#</div>
       <form action="http://localhost:3000/API/EDM/" enctype='application/x-www-form-urlencoded' method="POST">
         <div class="mt-5 container-sm">
+            <div>Add Song</div>
             <input id="songArtist" name="songArtist" placeholder="Enter artist"/>
             <input id="songName" name="songName" placeholder="Enter title"/>
-            <input type="submit"/>
+            <input type="submit" value="Add"/>
+        </div>
+      </form>
+      <form class="d-flex mb-5" name="_method" action="http://localhost:3000/API/EDM/" method="patch">
+        <div class="mt-5 container-sm">
+            <div>Change Song at ID</div>
+            <input id="songID" name="songID" placeholder="Enter ID"/>
+            <input id="songArtist" name="songArtist" placeholder="Change artist"/>
+            <input id="songName" name="songName" placeholder="Change title"/>
+            <input type="submit" value="Modify"/>
         </div>
       </form>
     </div>

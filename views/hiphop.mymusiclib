@@ -43,6 +43,13 @@
         </form>
       </div>
       <div class="container-sm">#content#</div>
+      <form action="http://localhost:3000/API/hiphop/" enctype='application/x-www-form-urlencoded' method="POST">
+        <div class="mt-5 container-sm">
+            <input id="songArtist" name="songArtist" placeholder="Enter artist"/>
+            <input id="songName" name="songName" placeholder="Enter title"/>
+            <input type="submit"/>
+        </div>
+      </form>
     </div>
   </body>
 </html>

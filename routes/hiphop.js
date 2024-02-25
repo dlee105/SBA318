@@ -10,38 +10,56 @@ router.use(express.static("../src")); // stylesheet
 // ---------- Template Engine ---------- //
 
 // --------------------------------------- //
-router.route("/").get((req, res, next) => {
-  let content = ``;
-  let cTemplate =
-    "<div class='w-100 d-flex justify-content-between bg-secondary text-light mb-1 p-2'>";
+router
+  .route("/")
+  .get((req, res, next) => {
+    let content = ``;
+    let cTemplate =
+      "<div class='w-100 d-flex justify-content-between bg-secondary text-light mb-1 p-2'>";
 
-  // console.log(req.query);
+    // console.log(req.query);
 
-  if (Object.keys(req.query).length > 0) {
-    if (Object.keys(req.query).includes("songID")) {
-      const song = hiphop.find((s) => s.id == req.query.songID);
-      content +=
-        cTemplate +
-        `<div>${song.title}</div><div>${song.artist}</div>` +
-        "</div>";
-    } else if (Object.keys(req.query).includes("songName")) {
-      const song = hiphop.find(
-        (s) => s.title.toLowerCase() == req.query.songName.toLowerCase()
-      );
-      content +=
-        cTemplate +
-        `<div>${song.title}</div><div>${song.artist}</div>` +
-        "</div>";
+    if (Object.keys(req.query).length > 0) {
+      if (Object.keys(req.query).includes("songID")) {
+        const song = hiphop.find((s) => s.id == req.query.songID);
+        content +=
+          cTemplate +
+          `<div>${song.title}</div><div>${song.artist}</div>` +
+          "</div>";
+      } else if (Object.keys(req.query).includes("songName")) {
+        const song = hiphop.find(
+          (s) => s.title.toLowerCase() == req.query.songName.toLowerCase()
+        );
+        content +=
+          cTemplate +
+          `<div>${song.title}</div><div>${song.artist}</div>` +
+          "</div>";
+      }
+    } else {
+      for (let song of hiphop) {
+        content +=
+          cTemplate + `<div>${song.title}</div><div>${song.artist}</div></div>`;
+      }
     }
-  } else {
+    // console.log(res);
+    res.render("hiphop", { title: "HipHop", content: `${content}` });
+  })
+  .post((req, res, rext) => {
+    let content = ``;
+    let cTemplate =
+      "<div class='w-100 d-flex justify-content-between bg-secondary text-light mb-1 p-2'>";
+    hiphop.push({
+      id: hiphop[hiphop.length - 1].id + 1,
+      artist: req.body.songArtist,
+      title: req.body.songName,
+    });
     for (let song of hiphop) {
       content +=
-        cTemplate + `<div>${song.title}</div><div>${song.artist}</div></div>`;
+        cTemplate +
+        `<div>${song.id} | ${song.title}</div><div>${song.artist}</div></div>`;
     }
-  }
-  // console.log(res);
-  res.render("hiphop", { title: "HipHop", content: `${content}` });
-});
+    res.render("hiphop", { title: "HipHop", content: `${content}` });
+  });
 
 router.get("/:id", (req, res, next) => {
   const song = hiphop.find((s) => s.id == req.params.id);
